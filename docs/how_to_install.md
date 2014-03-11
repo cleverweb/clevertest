@@ -124,9 +124,8 @@ GIT
 Для этого нужно создать кэш, базу данных (если подготовлена), установить asset’ы:
 
     app/console cache:clear
-    app/console doctrine:database:create
-    app/console doctrine:schema:create
-    app/console assets:install
+    app/console doctrine:schema:update --force
+    app/console assets:install --symlink
 
 Теперь можно открыть страницу с окружением dev:
 [http://clevertest.l/app_dev.php](http://clevertest.l/app_dev.php)
