@@ -2,12 +2,12 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_name:     clevertest
+    database_user:     clevertest
+    database_password: 123
 
     mailer_transport:  smtp
-    mailer_host:       127.0.0.1
+    mailer_host:       192.168.55.155
     mailer_user:       ~
     mailer_password:   ~
 
