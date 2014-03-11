@@ -1,0 +1,5 @@
+common:
+    resource: "@CommonBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

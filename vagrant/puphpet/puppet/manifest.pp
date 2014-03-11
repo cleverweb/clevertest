@@ -380,22 +380,16 @@ define nginx_vhost (
   $www_root,
   $listen_port,
   $index_files,
-  $envvars = [],
+  $envvars = []
 ){
   $merged_server_name = concat([$server_name], $server_aliases)
-
-  if is_array($index_files) and count($index_files) > 0 {
-    $try_files = $index_files[count($index_files) - 1]
-  } else {
-    $try_files = 'index.php'
-  }
 
   nginx::resource::vhost { $server_name:
     server_name      => $merged_server_name,
     www_root         => $www_root,
     listen_port      => $listen_port,
     index_files      => $index_files,
-    try_files        => ['$uri', '$uri/', "/${try_files}?\$args"],
+    try_files        => ['$uri', '@rewriteapp'],
     vhost_cfg_append => {
        sendfile => 'off'
     }
@@ -403,15 +397,25 @@ define nginx_vhost (
 
   $fastcgi_param = concat($fastcgi_param_parts, $envvars)
 
+
+  nginx::resource::location { "${server_name}-rewrite":
+    location            => '@rewriteapp',
+    www_root            => $www_root,
+    proxy               => undef,
+    location_cfg_append => {
+    'rewrite' => '^(.*)$ /app.php/$1 last;'
+    }
+  }
+
   nginx::resource::location { "${server_name}-php":
     ensure              => present,
     vhost               => $server_name,
-    location            => '~ \.php$',
+    location            => '~ ^/(app|app_dev|config)\.php(/|$)',
     proxy               => undef,
     try_files           => ['$uri', '$uri/', "/${try_files}?\$args"],
     www_root            => $www_root,
     location_cfg_append => {
-      'fastcgi_split_path_info' => '^(.+\.php)(/.+)$',
+      'fastcgi_split_path_info' => '^(.+\.php)(/.*)$',
       'fastcgi_param'           => $fastcgi_param,
       'fastcgi_pass'            => $fastcgi_pass,
       'fastcgi_index'           => 'index.php',

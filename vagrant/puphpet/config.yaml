@@ -1,9 +1,11 @@
 ---
 vagrantfile-local:
     vm:
-        box: ubuntu-precise12042-x64-vbox43
-        box_url: 'http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box'
+        box: precise64
+        box_url: 'http://files.vagrantup.com/precise64.box'
         hostname: null
+        name: clevertest-box
+
         network:
             private_network: 192.168.55.155
             forwarded_port:

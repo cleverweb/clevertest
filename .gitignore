@@ -30,3 +30,5 @@ bin/raven
 bin/phpunit
 bin/php-cs-fixer
 bin/webunit
+
+.vagrant
