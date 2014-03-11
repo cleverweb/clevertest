@@ -388,7 +388,7 @@ define nginx_vhost (
     server_name      => $merged_server_name,
     www_root         => $www_root,
     listen_port      => $listen_port,
-    index_files      => $index_files,
+    index_files      => ['app.php'],
     try_files        => ['$uri', '@rewriteapp'],
     vhost_cfg_append => {
        sendfile => 'off'
@@ -399,11 +399,13 @@ define nginx_vhost (
 
 
   nginx::resource::location { "${server_name}-rewrite":
+    ensure              => present,
+    vhost               => $server_name,
     location            => '@rewriteapp',
-    www_root            => $www_root,
     proxy               => undef,
+    www_root            => $www_root,
     location_cfg_append => {
-    'rewrite' => '^(.*)$ /app.php/$1 last;'
+      'rewrite' => '^(.*)$ /app.php/$1 last'
     }
   }
 
@@ -415,7 +417,11 @@ define nginx_vhost (
     www_root            => $www_root,
     location_cfg_append => {
       'fastcgi_split_path_info' => '^(.+\.php)(/.*)$',
-      'fastcgi_param'           => $fastcgi_param,
+      'fastcgi_param'           => ['SCRIPT_FILENAME  $document_root$fastcgi_script_name', 'HTTPS off'],
+      'fastcgi_read_timeout'    => '15000',
+      'fastcgi_buffer_size'     => '128k',
+      'fastcgi_buffers'         => '4 256k',
+      'fastcgi_busy_buffers_size' => '256k',
       'fastcgi_pass'            => $fastcgi_pass,
       'fastcgi_index'           => 'index.php',
       'include'                 => 'fastcgi_params'

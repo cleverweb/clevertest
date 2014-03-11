@@ -1,1 +1,10 @@
-Hello {{ name }}!
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+    <h2>Hello world!</h2>
+
+    <a href="{{ path('common_hello_somebody', {name: 'Fabien'}) }}">Show hello Fabien page. :)</a> <br>
+    <a href="/app_dev.php/not_exist_page">Show 404 error for me</a> <br>
+
+{% endblock %}
