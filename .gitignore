@@ -7,5 +7,26 @@
 !app/logs/.gitkeep
 /build/
 /vendor/
-/bin/
 /composer.phar
+
+# IDEs
+.idea
+.buildpath
+.project
+.settings/
+nbproject
+.rsync_cache
+.DS_Store
+.tmp_staging/
+*~
+*.sublime-project
+*.sublime-workspace
+
+bin/doctrine*
+bin/behat.bat
+bin/behat
+bin/hoa
+bin/raven
+bin/phpunit
+bin/php-cs-fixer
+bin/webunit
