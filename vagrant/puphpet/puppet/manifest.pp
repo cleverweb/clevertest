@@ -412,7 +412,6 @@ define nginx_vhost (
     vhost               => $server_name,
     location            => '~ ^/(app|app_dev|config)\.php(/|$)',
     proxy               => undef,
-    try_files           => ['$uri', '$uri/', "/${try_files}?\$args"],
     www_root            => $www_root,
     location_cfg_append => {
       'fastcgi_split_path_info' => '^(.+\.php)(/.*)$',
