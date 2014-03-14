@@ -4,7 +4,6 @@ vagrantfile-local:
         box: precise32
         box_url: 'http://files.vagrantup.com/precise32.box'
         hostname: null
-        name: clevertest-box
 
         network:
             private_network: 192.168.55.155
@@ -17,6 +16,7 @@ vagrantfile-local:
                 modifyvm:
                     natdnshostresolver1: on
                     memory: '768'
+                    name: clevertest-box
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
         provision:
