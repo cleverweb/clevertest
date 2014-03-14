@@ -1,8 +1,8 @@
 ---
 vagrantfile-local:
     vm:
-        box: precise64
-        box_url: 'http://files.vagrantup.com/precise64.box'
+        box: precise32
+        box_url: 'http://files.vagrantup.com/precise32.box'
         hostname: null
         name: clevertest-box
 
