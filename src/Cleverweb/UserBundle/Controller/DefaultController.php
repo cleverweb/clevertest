@@ -11,7 +11,6 @@ class DefaultController extends Controller
     /**
      * @Route("/user/{id}", name="cleverweb_user_default_index")
      */
-
     public function indexAction($id)
     {
         /**
