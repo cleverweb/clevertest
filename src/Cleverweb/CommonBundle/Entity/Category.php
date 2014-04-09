@@ -109,4 +109,9 @@ class Category
     {
         return $this->quizes;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
