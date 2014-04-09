@@ -1,31 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 4/4/14
- * Time: 2:47 PM
- */
 
 namespace Cleverweb\UserBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * @ORM\Entity
+ * User
+ *
  * @ORM\Table(name="fos_user")
+ * @ORM\Entity
  */
-class User extends BaseUser {
+class User extends BaseUser
+{
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
-    public function __construct()
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
     {
-        parent::__construct();
-        // your own logic
+        return $this->id;
     }
-} 
+}

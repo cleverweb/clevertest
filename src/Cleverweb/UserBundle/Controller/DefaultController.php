@@ -12,11 +12,21 @@ class DefaultController extends Controller
      * @Route("/user/{id}", name="cleverweb_user_default_index")
      */
 
-    public function indexAction($name)
+    public function indexAction($id)
     {
         /**
          * @var User $user
          */
-        return $this->render('UserBundle:Default:index.html.twig', array($user->getUsername('id') => $name));
+        $user = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user found for id '.$id
+            );
+        }
+
+        return $this->render('UserBundle:Default:index.html.twig', array('user' => $user));
     }
 }
