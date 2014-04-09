@@ -18,6 +18,21 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/email/{text}", name="common_email_somebody")
+     * @Template()
+     */
+    public function emailAction($text)
+    {
+        $mailer = $this->get('mailer');
+
+        $message = new \Swift_Message('Hello', $text);
+        $message->setTo('armadelf@gmail.com');
+        $message->setFrom('me@me.me');
+
+        $mailer->send($message);
+    }
+
+    /**
      * @Route("/", name="common_homepage")
      * @Template()
      */

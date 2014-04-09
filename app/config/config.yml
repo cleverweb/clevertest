@@ -63,7 +63,8 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
-    spool:     { type: memory }
+    encryption: null
+    #spool:     { type: memory }
 
 # fos_user configuration
 fos_user:
