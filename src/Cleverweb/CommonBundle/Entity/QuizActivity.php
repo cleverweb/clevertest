@@ -2,6 +2,7 @@
 
 namespace Cleverweb\CommonBundle\Entity;
 
+use Cleverweb\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,7 +39,7 @@ class QuizActivity
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Cleverweb\UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fos_user_id", referencedColumnName="id")
      * })
