@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+
+{% block title %}Creating quiz{% endblock %}
+
+{% block body %}
+
+    {{ form(form) }}
+
+    <a href="{{ path('cleverweb_commmon_categories_create') }}">Create new category</a>
+
+{% endblock %}
+
+
