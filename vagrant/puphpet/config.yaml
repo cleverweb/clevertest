@@ -1,21 +1,21 @@
 ---
 vagrantfile-local:
     vm:
-        box: precise32
-        box_url: 'http://files.vagrantup.com/precise32.box'
+        box: puphpet/ubuntu1204-x64
+        box_url: puphpet/ubuntu1204-x64
         hostname: null
-
+        main_ssh_port: 5523
         network:
             private_network: 192.168.55.155
             forwarded_port:
-                mSMwPvL7h56Y:
+                PWnWm8X1qmdy:
                     host: '3310'
                     guest: '3306'
         provider:
             virtualbox:
                 modifyvm:
                     natdnshostresolver1: on
-                    memory: '768'
+                    memory: '1024'
                     name: clevertest-box
                 setextradata:
                     VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
@@ -28,8 +28,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            7A5oTxHIUDmn:
-                id: vagrant-root
+            K9eEwTEqatZ6:
                 source: ../
                 target: /var/www/clevertest
                 nfs: 'true'
@@ -61,10 +60,44 @@ mailcatcher:
         http_port: '1080'
         mailcatcher_path: /usr/local/bin
         log_path: /var/log/mailcatcher/mailcatcher.log
+apache:
+    install: 0
+    settings:
+        user: www-data
+        group: www-data
+        default_vhost: true
+        manage_user: false
+        manage_group: false
+        sendfile: 0
+    modules:
+        - php
+        - rewrite
+    vhosts:
+        TP5uNY6B2f6M:
+            servername: awesome.dev
+            serveraliases:
+                - www.awesome.dev
+            docroot: /var/www/awesome
+            port: '80'
+            setenv:
+                - 'APP_ENV dev'
+            override:
+                - All
+            options:
+                - Indexes
+                - FollowSymLinks
+                - MultiViews
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+    mod_pagespeed: 0
+    mod_spdy: 0
 nginx:
     install: '1'
     vhosts:
-        gEBtF0BlBbCg:
+        ITbH5em1fsMy:
             server_name: clevertest.l
             server_aliases:
                 - www.clevertest.l
@@ -84,11 +117,11 @@ php:
     modules:
         php:
             - cli
+            - fpm
+            - gd
+            - imagick
             - intl
             - mcrypt
-            - gd
-            - fpm
-            - imagick
             - mysql
             - curl
         pear: {  }
@@ -109,6 +142,7 @@ xdebug:
         xdebug.remote_port: '9000'
         xdebug.remote_autostart: '1'
         xdebug.remote_host: 192.168.55.1
+        xdebug.idekey: PHPSTORM
 drush:
     install: 0
     settings:
@@ -119,7 +153,7 @@ mysql:
     phpmyadmin: '1'
     adminer: 0
     databases:
-        0mgleK438sW7:
+        FyFJAgISvUbH:
             grant:
                 - ALL
             name: clevertest
@@ -129,8 +163,11 @@ mysql:
             sql_file: ''
 postgresql:
     install: 0
-    root_password: '123'
-    user_group: postgres
+    settings:
+        root_password: '123'
+        user_group: postgres
+        encoding: UTF8
+        version: '9.3'
     databases: {  }
     adminer: 0
 mariadb:
@@ -141,13 +178,13 @@ mariadb:
     databases: {  }
     version: '10.0'
 mongodb:
-    install: 0
+    install: '1'
     settings:
         auth: 1
         port: '27017'
     databases: {  }
 redis:
-    install: 0
+    install: '1'
     settings:
         conf_port: '6379'
 beanstalkd:
