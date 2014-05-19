@@ -1,8 +1,8 @@
 ---
 vagrantfile-local:
     vm:
-        box: puphpet/ubuntu1204-x64
-        box_url: puphpet/ubuntu1204-x64
+        box: precise32
+        box_url: 'http://files.vagrantup.com/precise32.box'
         hostname: null
         main_ssh_port: 5523
         network:
